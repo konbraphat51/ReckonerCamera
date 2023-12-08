@@ -1,6 +1,7 @@
 <template>
     <div id="app">
-
+        <LanguageSelection />
+        <Camera />
     </div>
 </template>
 
@@ -8,7 +9,8 @@
 export default Vue.defineComponent({
     name: 'App',
     components: {
-        "LanguageSelection": Vue.defineAsyncComponent(() => loadModule("src/components/LanguageSelection.vue", options))
+        "LanguageSelection": Vue.defineAsyncComponent(() => loadModule("src/components/LanguageSelection.vue", options)),
+        "Camera": Vue.defineAsyncComponent(() => loadModule("src/components/Camera/Camera.vue", options))
     },
     setup() {
         //set up i18n
