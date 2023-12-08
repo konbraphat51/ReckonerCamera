@@ -1,6 +1,7 @@
 <template>
     <div id="Camera">
         <video ref="video" autoplay width="300" height="200"></video>
+        <Button @takePicture="takePicture" />
     </div>
 </template>
 
@@ -8,6 +9,7 @@
 export default Vue.defineComponent({
     name: 'Camera',
     components: {
+        "Button": Vue.defineAsyncComponent(() => loadModule("src/components/Camera/Button.vue", options))
     },
     setup() {
         //set up i18n
@@ -24,6 +26,21 @@ export default Vue.defineComponent({
                 .catch(function (error) {
                     console.log(error);
                 });
+        }
+    },
+    methods: {
+        takePicture() {
+            const canvas = document.createElement('canvas')
+            const video = this.$refs.video
+            canvas.width = video.videoWidth
+            canvas.height = video.videoHeight
+            const context = canvas.getContext('2d')
+
+            context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
+            const data = canvas.toDataURL('image/png')
+            this.$emit('pictureTaken', data)
+
+            canvas.remove()
         }
     },
 })
