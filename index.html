@@ -18,6 +18,12 @@
 
     <script>
         //initialize i18n
+        const locale_supported = ["en", "ja"]
+
+        //avoid unknown language
+        let locale = navigator.language;
+        if (!locale_supported.includes(locale)) locale = "en";
+
         const i18n = VueI18n.createI18n({
             legacy: false,
             locale: navigator.language,
