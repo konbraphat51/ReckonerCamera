@@ -45,7 +45,5 @@ export default Vue.defineComponent({
             this.accelerometerData.z = event.acceleration.z
         },
     }
+})
 </script>
-
-<i18n>
-</i18n>

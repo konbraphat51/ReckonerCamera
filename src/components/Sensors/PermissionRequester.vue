@@ -1,6 +1,6 @@
 <template>
     <div id="PermissionRequester">
-        <button v-on:click="RequestPermission">{{ t('permissionRequester.permissionRequester') }}</button>
+        <button v-on:click="RequestPermission">{{ t('permissionRequester.request_sensor') }}</button>
     </div>
 </template>
 
@@ -36,12 +36,12 @@ export default Vue.defineComponent({
     {
         "en": {
             "permissionRequester": {
-                "permissionRequester": "Get sensor permission"
+                "request_sensor": "Get sensor permission"
             }
         },
         "ja": {
             "permissionRequester": {
-                "permissionRequester": "センサー許可を得る"
+                "request_sensor": "センサー許可を得る"
             }
         }
     }
