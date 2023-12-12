@@ -40,7 +40,7 @@ export default Vue.defineComponent({
                 gamma: 0
             },
             flagListening: false,
-            device2earthQuaternion: Quaternion.identity
+            earth2roomQuaternion: Quaternion.identity,
         }
     },
     mounted() {
@@ -69,18 +69,21 @@ export default Vue.defineComponent({
             this.orientationData.alpha = event.alpha
             this.orientationData.beta = event.beta
             this.orientationData.gamma = event.gamma
-
-            let earth2deviceAlpha = Quaternion.AngleAxis(-event.alpha, [0, 0, 1])
-            let earth2deviceBeta = Quaternion.AngleAxis(-event.beta, [1, 0, 0])
-            let earth2deviceGamma = Quaternion.AngleAxis(-event.gamma, [0, 1, 0])
+        },
+        SetCoordinate() {
+            this.earth2roomQuaternion = this.earth2DeviceQuaternion
+        },
+    },
+    computed: {
+        earth2DeviceQuaternion() {
+            let earth2deviceAlpha = Quaternion.AngleAxis(this.orientationData.alpha, [0, 0, 1])
+            let earth2deviceBeta = Quaternion.AngleAxis(this.orientationData.alpha, [1, 0, 0])
+            let earth2deviceGamma = Quaternion.AngleAxis(this.orientationData.alpha, [0, 1, 0])
 
             let earth2deviceQuaternion = Quaternion.Multiply(earth2deviceGamma, Quaternion.Multiply(earth2deviceBeta, earth2deviceAlpha))
 
-            this.device2earthQuaternion = Quaternion.Inverse(earth2deviceQuaternion)
+            return Quaternion.Inverse(earth2deviceQuaternion)
         },
-        SetCoordinate() {
-
-        }
     }
 })
 </script>
