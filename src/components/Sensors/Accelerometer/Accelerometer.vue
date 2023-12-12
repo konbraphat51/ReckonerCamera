@@ -11,6 +11,8 @@
         beta: {{ orientationData.beta }} <br>
         gamma: {{ orientationData.gamma }} <br>
         </p>
+
+        <CoordinateSetter @set="SetCoordinate" />
     </div>
 </template>
 
@@ -18,6 +20,7 @@
 export default Vue.defineComponent({
     name: 'Accelerometer',
     components: {
+        "CoordinateSetter": Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/Accelerometer/CoordinateSetter.vue", options)),
     },
     setup() {
         //set up i18n
@@ -37,7 +40,7 @@ export default Vue.defineComponent({
                 gamma: 0
             },
             flagListening: false,
-            device2earthQuaternion: Quanternion.identity
+            device2earthQuaternion: Quaternion.identity
         }
     },
     mounted() {
@@ -67,13 +70,16 @@ export default Vue.defineComponent({
             this.orientationData.beta = event.beta
             this.orientationData.gamma = event.gamma
 
-            let earth2deviceAlpha = Quanternion.AngleAxis(-event.alpha, [0, 0, 1])
-            let earth2deviceBeta = Quanternion.AngleAxis(-event.beta, [1, 0, 0])
-            let earth2deviceGamma = Quanternion.AngleAxis(-event.gamma, [0, 1, 0])
+            let earth2deviceAlpha = Quaternion.AngleAxis(-event.alpha, [0, 0, 1])
+            let earth2deviceBeta = Quaternion.AngleAxis(-event.beta, [1, 0, 0])
+            let earth2deviceGamma = Quaternion.AngleAxis(-event.gamma, [0, 1, 0])
 
-            let earth2deviceQuaternion = Quanternion.Multiply(earth2deviceGamma, Quanternion.Multiply(earth2deviceBeta, earth2deviceAlpha))
+            let earth2deviceQuaternion = Quaternion.Multiply(earth2deviceGamma, Quaternion.Multiply(earth2deviceBeta, earth2deviceAlpha))
 
-            this.device2earthQuaternion = Quanternion.Inverse(earth2deviceQuaternion)
+            this.device2earthQuaternion = Quaternion.Inverse(earth2deviceQuaternion)
+        },
+        SetCoordinate() {
+
         }
     }
 })
