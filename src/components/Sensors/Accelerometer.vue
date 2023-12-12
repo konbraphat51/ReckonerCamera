@@ -1,13 +1,15 @@
 <template>
     <div id="Accelerometer">
         <p>
-            x: {{ accelerometerData.x }} <br>
-            y: {{ accelerometerData.y }} <br>
-            z: {{ accelerometerData.z }} <br>
+        <h3>Accelerometer</h3>
+        x: {{ accelerometerData.x }} <br>
+        y: {{ accelerometerData.y }} <br>
+        z: {{ accelerometerData.z }} <br>
 
-            xMax: {{ accelerometerData.xMax }} <br>
-            yMax: {{ accelerometerData.yMax }} <br>
-            zMax: {{ accelerometerData.zMax }} <br>
+        <h3>Orientation</h3>
+        alpha: {{ orientationData.alpha }} <br>
+        beta: {{ orientationData.beta }} <br>
+        gamma: {{ orientationData.gamma }} <br>
         </p>
     </div>
 </template>
@@ -27,10 +29,12 @@ export default Vue.defineComponent({
             accelerometerData: {
                 x: 0,
                 y: 0,
-                z: 0,
-                xMax: 0,
-                yMax: 0,
-                zMax: 0,
+                z: 0
+            },
+            orientationData: {
+                alpha: 0,
+                beta: 0,
+                gamma: 0
             },
             flagListening: false
         }
@@ -45,22 +49,23 @@ export default Vue.defineComponent({
             } else {
                 alert("DeviceMotionEvent is not supported")
             }
+
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', this.GetOrientation, false)
+            } else {
+                alert("DeviceOrientationEvent is not supported")
+            }
         },
         GetAcceleration(event) {
             this.accelerometerData.x = event.acceleration.x
             this.accelerometerData.y = event.acceleration.y
             this.accelerometerData.z = event.acceleration.z
-
-            if (Math.abs(this.accelerometerData.x) > Math.abs(this.accelerometerData.xMax)) {
-                this.accelerometerData.xMax = this.accelerometerData.x
-            }
-            if (Math.abs(this.accelerometerData.y) > Math.abs(this.accelerometerData.yMax)) {
-                this.accelerometerData.yMax = this.accelerometerData.y
-            }
-            if (Math.abs(this.accelerometerData.z) > Math.abs(this.accelerometerData.zMax)) {
-                this.accelerometerData.zMax = this.accelerometerData.z
-            }
         },
+        GetOrientation(event) {
+            this.orientationData.alpha = event.alpha
+            this.orientationData.beta = event.beta
+            this.orientationData.gamma = event.gamma
+        }
     }
 })
 </script>
