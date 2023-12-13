@@ -2,14 +2,9 @@
     <div id="Accelerometer">
         <p>
         <h3>Accelerometer</h3>
-        x: {{ accelerometerData.x }} <br>
-        y: {{ accelerometerData.y }} <br>
-        z: {{ accelerometerData.z }} <br>
-
-        <h3>Orientation</h3>
-        alpha: {{ orientationData.alpha }} <br>
-        beta: {{ orientationData.beta }} <br>
-        gamma: {{ orientationData.gamma }} <br>
+        x: {{ accelerationInRoom.x }} <br>
+        y: {{ accelerationInRoom.y }} <br>
+        z: {{ accelerationInRoom.z }} <br>
         </p>
 
         <CoordinateSetter @set="SetCoordinate" />
@@ -84,6 +79,14 @@ export default Vue.defineComponent({
 
             return Quaternion.Inverse(earth2deviceQuaternion)
         },
+        device2roomQuaternion() {
+            return Quaternion.Multiply(this.earth2roomQuaternion, Quaternion.Inverse(this.earth2DeviceQuaternion))
+        },
+        accelerationInRoom() {
+            let accelerationInDevice = [this.accelerometerData.x, this.accelerometerData.y, this.accelerometerData.z]
+            
+            return this.device2roomQuaternion.RotateVector(accelerationInDevice)
+        }
     }
 })
 </script>
