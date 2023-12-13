@@ -1,6 +1,6 @@
 <template>
   <div id="Sensors">
-    <Accelerometer ref="acceleration" />
+    <Accelerometer ref="accelerometer" />
     <PermissionRequester />
 
     <button @click="GetAcceleration">Get Acceleration</button>
@@ -35,7 +35,7 @@ export default Vue.defineComponent({
   },
   methods: {
     GetAcceleration() {
-      this.acceleration = this.$refs.accelerometer.GetAcceleration();
+      this.acceleration = this.$refs["accelerometer"].GetAccelerationInRoom()
     },
   },
 });
