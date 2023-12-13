@@ -2,9 +2,9 @@
     <div id="Accelerometer">
         <p>
         <h3>Accelerometer</h3>
-        x: {{ accelerationInRoom.x }} <br>
-        y: {{ accelerationInRoom.y }} <br>
-        z: {{ accelerationInRoom.z }} <br>
+        x: {{ accelerationInRoom[0] }} <br>
+        y: {{ accelerationInRoom[1] }} <br>
+        z: {{ accelerationInRoom[2] }} <br>
         </p>
 
         <CoordinateSetter @set="SetCoordinate" />
