@@ -74,12 +74,12 @@ export default Vue.defineComponent({
         GetDevice2RoomQuaternion() {
             return this.device2roomQuaternion
         },
-        GetEarth2DeviceQuaternion() {
-            return this.earth2DeviceQuaternion
+        GetDevice2EarthQuaternion() {
+            return this.device2EarthQuaternion
         }
     },
     computed: {
-        earth2DeviceQuaternion() {
+        device2EarthQuaternion() {
             //Device orientation:
             // https://developer.mozilla.org/ja/docs/Web/API/Device_orientation_events/Orientation_and_motion_data_explained
             let earth2deviceAlpha = Quaternion.AngleAxis(this.orientationData.alpha, [0, 0, 1])
@@ -91,7 +91,7 @@ export default Vue.defineComponent({
             return Quaternion.Inverse(earth2deviceQuaternion).normalized
         },
         device2roomQuaternion() {
-            return Quaternion.Multiply(this.earth2roomQuaternion, Quaternion.Inverse(this.earth2DeviceQuaternion)).normalized
+            return Quaternion.Multiply(this.earth2roomQuaternion, this.device2EarthQuaternion).normalized
         },
         accelerationInRoom() {
             let accelerationInDevice = [this.accelerometerData.x, this.accelerometerData.y, this.accelerometerData.z]

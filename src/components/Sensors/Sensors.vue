@@ -45,7 +45,7 @@ export default Vue.defineComponent({
         this.acceleration = this.$refs["accelerometer"].GetAccelerationInRoom()
     
         //let q = this.$refs["accelerometer"].GetDevice2RoomQuaternion()
-        let q = this.$refs["accelerometer"].GetEarth2DeviceQuaternion()
+        let q = this.$refs["accelerometer"].GetDevice2EarthQuaternion()
         this.direction = q.RotateVector([0, 1, 0])
     },
   },
