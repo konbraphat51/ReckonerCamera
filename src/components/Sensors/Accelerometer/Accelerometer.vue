@@ -7,6 +7,13 @@
         z: {{ accelerationInRoom[2] }} <br>
         </p>
 
+        <p>
+        <h3>Direction</h3>
+        x: {{ direction[0] }} <br>
+        y: {{ direction[1] }} <br>
+        z: {{ direction[2] }} <br>
+        </p>
+
         <CoordinateSetter @set="SetCoordinate" />
     </div>
 </template>
@@ -97,6 +104,9 @@ export default Vue.defineComponent({
             let accelerationInDevice = [this.accelerometerData.x, this.accelerometerData.y, this.accelerometerData.z]
             
             return this.device2roomQuaternion.RotateVector(accelerationInDevice)
+        },
+        direction() {
+            return this.device2roomQuaternion.RotateVector([0, 1, 0])
         }
     }
 })

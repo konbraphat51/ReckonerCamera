@@ -3,19 +3,13 @@
     <Accelerometer ref="accelerometer" />
     <PermissionRequester />
 
-    <button @click="GetAcceleration">Get Acceleration</button>
+    <button @click="ReadAccelerometer">Get Acceleration</button>
 
     <p>
       <h3>Acceleration</h3>
       x: {{ acceleration[0] }} <br />
       y: {{ acceleration[1] }} <br />
       z: {{ acceleration[2] }} <br />
-
-      <h3>Direction; room</h3>
-        x: {{ direction[0] }} <br />
-        y: {{ direction[1] }} <br />
-        z: {{ direction[2] }} <br />
-
     </p>
   </div>
 </template>
@@ -37,15 +31,14 @@ export default Vue.defineComponent({
   data() {
     return {
       acceleration: [0, 0, 0],
-      direction: [0, 0, 0]
+      device2room: Quaternion.identity,
     };
   },
   methods: {
-    GetAcceleration() {
+    ReadAccelerometer() {
         this.acceleration = this.$refs["accelerometer"].GetAccelerationInRoom()
     
-        let q = this.$refs["accelerometer"].GetDevice2RoomQuaternion()
-        this.direction = q.RotateVector([0, 1, 0])
+        this.device2room = this.$refs["accelerometer"].GetDevice2RoomQuaternion()
     },
   },
 });
