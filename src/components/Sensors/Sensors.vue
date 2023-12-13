@@ -11,7 +11,7 @@
       y: {{ acceleration[1] }} <br />
       z: {{ acceleration[2] }} <br />
 
-      <h3>Direction</h3>
+      <h3>Direction; room</h3>
         x: {{ direction[0] }} <br />
         y: {{ direction[1] }} <br />
         z: {{ direction[2] }} <br />
@@ -44,8 +44,7 @@ export default Vue.defineComponent({
     GetAcceleration() {
         this.acceleration = this.$refs["accelerometer"].GetAccelerationInRoom()
     
-        //let q = this.$refs["accelerometer"].GetDevice2RoomQuaternion()
-        let q = this.$refs["accelerometer"].GetDevice2EarthQuaternion()
+        let q = this.$refs["accelerometer"].GetDevice2RoomQuaternion()
         this.direction = q.RotateVector([0, 1, 0])
     },
   },
