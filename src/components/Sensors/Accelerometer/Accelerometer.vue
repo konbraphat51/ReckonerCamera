@@ -73,6 +73,9 @@ export default Vue.defineComponent({
         },
         GetDevice2RoomQuaternion() {
             return this.device2roomQuaternion
+        },
+        GetEarth2DeviceQuaternion() {
+            return this.earth2DeviceQuaternion
         }
     },
     computed: {
