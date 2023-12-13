@@ -1,6 +1,6 @@
 <template>
   <div id="Sensors">
-    <Accelerometer ref="accelerometer" />
+    <Accelerometer ref="accelerometer" :flagMoving="flagMoving"/>
     <PermissionRequester />
     <MovingButton
       @startMovement="StartMovement"
