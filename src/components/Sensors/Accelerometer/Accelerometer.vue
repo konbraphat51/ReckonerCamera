@@ -85,10 +85,10 @@ export default Vue.defineComponent({
 
             let earth2deviceQuaternion = Quaternion.Multiply(earth2deviceGamma, Quaternion.Multiply(earth2deviceBeta, earth2deviceAlpha))
 
-            return Quaternion.Inverse(earth2deviceQuaternion)
+            return Quaternion.Inverse(earth2deviceQuaternion).normalized
         },
         device2roomQuaternion() {
-            return Quaternion.Multiply(this.earth2roomQuaternion, Quaternion.Inverse(this.earth2DeviceQuaternion))
+            return Quaternion.Multiply(this.earth2roomQuaternion, Quaternion.Inverse(this.earth2DeviceQuaternion)).normalized
         },
         accelerationInRoom() {
             let accelerationInDevice = [this.accelerometerData.x, this.accelerometerData.y, this.accelerometerData.z]
