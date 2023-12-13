@@ -70,10 +70,15 @@ export default Vue.defineComponent({
         },
         GetAccelerationInRoom() {
             return this.accelerationInRoom
+        },
+        GetDevice2RoomQuaternion() {
+            return this.device2roomQuaternion
         }
     },
     computed: {
         earth2DeviceQuaternion() {
+            //Device orientation:
+            // https://developer.mozilla.org/ja/docs/Web/API/Device_orientation_events/Orientation_and_motion_data_explained
             let earth2deviceAlpha = Quaternion.AngleAxis(this.orientationData.alpha, [0, 0, 1])
             let earth2deviceBeta = Quaternion.AngleAxis(this.orientationData.alpha, [1, 0, 0])
             let earth2deviceGamma = Quaternion.AngleAxis(this.orientationData.alpha, [0, 1, 0])
