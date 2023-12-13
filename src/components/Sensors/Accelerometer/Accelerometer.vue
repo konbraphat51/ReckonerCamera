@@ -68,6 +68,9 @@ export default Vue.defineComponent({
         SetCoordinate() {
             this.earth2roomQuaternion = this.earth2DeviceQuaternion
         },
+        GetAccelerationInRoom() {
+            return this.accelerationInRoom
+        }
     },
     computed: {
         earth2DeviceQuaternion() {
