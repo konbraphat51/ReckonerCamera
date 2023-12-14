@@ -2,7 +2,7 @@
 	<div id="app">
 		<LanguageSelection />
 		<Camera @pictureTaken="OnPictureTaken" />
-		<Sensors />
+		<Sensors ref="sensors" />
 	</div>
 </template>
 
@@ -28,6 +28,8 @@ export default Vue.defineComponent({
 	methods: {
 		OnPictureTaken(data) {
 			let pictureData = data
+
+			const position = this.$refs["sensors"].GetPosition()
 		},
 	},
 })

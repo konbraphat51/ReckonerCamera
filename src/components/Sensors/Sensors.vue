@@ -15,6 +15,8 @@
       y: {{ acceleration[1] }} <br />
       z: {{ acceleration[2] }} <br />
     </p>
+
+    <Position ref="position" />
   </div>
 </template>
 
@@ -25,7 +27,8 @@ export default Vue.defineComponent({
     Accelerometer: Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/Accelerometer/Accelerometer.vue", options)),
     PermissionRequester: Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/PermissionRequester.vue", options)),
     MovingButton: Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/MovingButton.vue", options)),
-  },
+    Position: Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/Position.vue", options)),
+},
   data() {
     return {
       acceleration: [0, 0, 0],
@@ -46,7 +49,10 @@ export default Vue.defineComponent({
         this.flagMoving = false
     },
     OnDistanceCalculated(distance) {
-      alert(distance)
+      this.$refs["position"].Move(distance)
+    },
+    GetPosition() {
+      return this.$refs["position"].GetPosition()
     }
   },
 });
