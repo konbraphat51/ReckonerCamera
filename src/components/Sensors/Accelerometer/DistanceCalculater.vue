@@ -29,7 +29,6 @@ export default Vue.defineComponent({
 				z: [],
 			},
 			dataReceivedTime: [],
-			dataN: 0,
 		}
 	},
 	methods: {
@@ -66,6 +65,8 @@ export default Vue.defineComponent({
 			//https://www.utsbox.com/?page_id=523
 			//low pass filter
 
+			const n = this.accelerationInRoomData.x.length
+
 			//set
 			const q = 0.3
 			const cutoff = 0.1
@@ -87,7 +88,7 @@ export default Vue.defineComponent({
 
 			let output = []
 
-			for (let cnt = 0; cnt < this.dataN; cnt++) {
+			for (let cnt = 0; cnt < n; cnt++) {
 				const input = [
 					this.accelerationInRoomData.x[cnt],
 					this.accelerationInRoomData.y[cnt],
@@ -116,10 +117,12 @@ export default Vue.defineComponent({
 		ComputeSamplingRate() {
 			//simply from average time interval
 			let sum = 0
+			let n = 0
 			for (let i = 0; i < this.dataReceivedTime.length - 1; i++) {
 				sum += this.dataReceivedTime[i + 1] - this.dataReceivedTime[i]
+				n++
 			}
-			return (this.dataN - 1) / sum
+			return (n - 1) / sum
 		},
 		ComputeVelocity(accelerationData, samplingRate) {
 			const n = accelerationData.length
@@ -185,8 +188,6 @@ export default Vue.defineComponent({
 				this.accelerationInRoomData.y.push(val[1])
 				this.accelerationInRoomData.z.push(val[2])
 				this.dataReceivedTime.push(performance.now())
-
-				this.dataN++
 			},
 			deep: true,
 		},
