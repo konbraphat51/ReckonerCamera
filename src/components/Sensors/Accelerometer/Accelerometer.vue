@@ -25,7 +25,7 @@ export default Vue.defineComponent({
     components: {
     "CoordinateSetter": Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/Accelerometer/CoordinateSetter.vue", options)),
     "DistanceCalculater": Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/Accelerometer/DistanceCalculater.vue", options)),
-},
+    },
     setup() {
         //set up i18n
         const { t } = VueI18n.useI18n()
