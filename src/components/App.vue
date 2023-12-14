@@ -47,9 +47,9 @@ export default Vue.defineComponent({
 			const exifObj = {
 				Exif: {
 					room2device: room2device.ToString(5),
-					position_x: position[0],
-					position_y: position[1],
-					position_z: position[2],
+					position_x: position[0].toString(),
+					position_y: position[1].toString(),
+					position_z: position[2].toString(),
 				},
 			}
 			const exifStr = piexif.dump(exifObj)
