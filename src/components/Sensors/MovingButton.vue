@@ -27,6 +27,8 @@ export default Vue.defineComponent({
 			} else {
 				this.$emit("startMovement")
 			}
+
+			this.isMoving = !this.isMoving
 		},
 	},
 })
