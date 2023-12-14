@@ -53,8 +53,8 @@ export default Vue.defineComponent({
 			const n = this.accelerationInRoomData.x.length
 
 			//set
-			const q = 0.7
-			const cutoff = 0.01
+			const q = 0.5
+			const cutoff = 40
 
 			const omega = (2 * Math.PI * cutoff) / samplingRate
 			const alpha = Math.sin(omega) / (2 * q)
