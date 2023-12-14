@@ -83,7 +83,8 @@ export default Vue.defineComponent({
             this.orientationData.gamma = event.gamma
         },
         SetCoordinate() {
-            this.earth2roomQuaternion = this.earth2DeviceQuaternion
+            //clone
+            this.earth2roomQuaternion = new Quaternion(this.device2EarthQuaternion.x, this.device2EarthQuaternion.y, this.device2EarthQuaternion.z, this.device2EarthQuaternion.w)
         },
         OnDistanceCalculated(distance) {
             this.$emit("distanceCalculated", distance)
