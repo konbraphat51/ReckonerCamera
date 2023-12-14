@@ -31,6 +31,41 @@ export default Vue.defineComponent({
 
 			const position = this.$refs["sensors"].GetPosition()
 			const room2device = this.$refs["sensors"].GetRoom2Device()
+
+			const dataEdited = this.CreateImageData(
+				pictureData,
+				position,
+				room2device,
+			)
+
+			const time = new Date().toISOString().replace(/:/g, "-")
+
+			this.Download(dataEdited, "image_" + time + ".png")
+		},
+		CreateImageData(pictureData, position, room2device) {
+			//make exif
+			const exifObj = {
+				Exif: {
+					room2device: room2device.ToString(5),
+					position_x: position[0],
+					position_y: position[1],
+					position_z: position[2],
+				},
+			}
+			const exifStr = piexif.dump(exifObj)
+
+			//write to PNG
+			return piexif.insert(exifStr, pictureData)
+		},
+		Download(data, filename) {
+			const blob = new Blob([data], {type: "image/png"})
+			const url = window.URL.createObjectURL(blob)
+			const link = document.createElement("a")
+			link.href = url
+			link.download = filename
+			link.click()
+
+			link.remove()
 		},
 	},
 })
