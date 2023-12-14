@@ -15,7 +15,9 @@
         </p>
 
         <CoordinateSetter @set="SetCoordinate" />
-        <DistanceCalculater @distanceCalculated="OnDistanceCalculated" @flagMoving="flagMoving"/>
+        <DistanceCalculater 
+            @distanceCalculated="OnDistanceCalculated" 
+            :flagMoving="flagMoving"/>
     </div>
 </template>
 
