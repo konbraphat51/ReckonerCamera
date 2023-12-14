@@ -124,7 +124,7 @@ export default Vue.defineComponent({
 		ComputeVelocity(accelerationData, samplingRate) {
 			const n = accelerationData.length
 
-			let output = [0, 0, 0]
+			let output = [[0, 0, 0]]
 
 			for (let cnt = 0; cnt < n; cnt++) {
 				const input = [
