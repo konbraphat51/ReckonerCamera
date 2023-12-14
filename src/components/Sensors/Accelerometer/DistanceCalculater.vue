@@ -80,21 +80,7 @@ export default Vue.defineComponent({
 					this.accelerationInRoomData.z[cnt],
 				]
 
-				const outputThis = this.PlusVec(
-					this.ScaleVec(input, b0 / a0),
-					this.ScaleVec(in1, b1 / a0),
-					this.ScaleVec(in2, b2 / a0),
-					this.ScaleVec(out1, -a1 / a0),
-					this.ScaleVec(out2, -a2 / a0),
-				)
-
-				output.push(outputThis)
-
-				in2 = in1
-				in1 = input
-
-				out2 = out1
-				out1 = outputThis
+				output.push(input)
 			}
 
 			return output
