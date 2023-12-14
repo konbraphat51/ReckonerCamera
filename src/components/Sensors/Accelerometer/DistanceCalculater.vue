@@ -149,7 +149,10 @@ export default Vue.defineComponent({
 			let output = [0, 0, 0]
 
 			for (let cnt = 0; cnt < n; cnt++) {
-				output = this.PlusVec(output, velocityData[cnt])
+				output = this.PlusVec(
+					output,
+					this.ScaleVec(velocityData[cnt], 1 / samplingRate),
+				)
 			}
 
 			return output
