@@ -22,12 +22,12 @@ export default Vue.defineComponent({
 		const video = this.$refs.video
 		if (navigator.mediaDevices.getUserMedia) {
 			navigator.mediaDevices
-				.getUserMedia({video: true})
+				.getUserMedia({video: true, audio: false})
 				.then(function (stream) {
 					video.srcObject = stream
 				})
 				.catch(function (error) {
-					console.log(error)
+					alert(error)
 				})
 		}
 	},
