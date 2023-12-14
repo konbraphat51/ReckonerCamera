@@ -33,7 +33,15 @@ export default Vue.defineComponent({
 	},
 	methods: {
 		StartMoving() {},
-		StopMoving() {},
+		StopMoving() {
+			this.ClearData()
+		},
+		ClearData() {
+			this.accelerationInRoomData.x = []
+			this.accelerationInRoomData.y = []
+			this.accelerationInRoomData.z = []
+			this.dataReceivedTime = []
+		},
 	},
 	watch: {
 		accelerationInRoom: {
