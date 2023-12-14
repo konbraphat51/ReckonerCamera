@@ -29,18 +29,92 @@ export default Vue.defineComponent({
 				z: [],
 			},
 			dataReceivedTime: [],
+			dataN: 0,
 		}
 	},
 	methods: {
 		StartMoving() {},
 		StopMoving() {
+			this.FilterData()
 			this.ClearData()
+		},
+		FilterData() {
+			//https://www.utsbox.com/?page_id=523
+			//low pass filter
+
+			//set
+			const q = 0.3
+			const cutoff = 0.1
+
+			const samplingRate = this.ComputeSamplingRate()
+			const omega = (2 * Math.PI * cutoff) / samplingRate
+			const alpha = Math.sin(omega) / (2 * q)
+
+			let a0 = 1 + alpha
+			let a1 = -2 * Math.cos(omega)
+			let a2 = 1 - alpha
+			let b0 = (1 - Math.cos(omega)) / 2
+			let b1 = 1 - Math.cos(omega)
+			let b2 = (1 - Math.cos(omega)) / 2
+
+			let in1 = [0, 0, 0]
+			let in2 = [0, 0, 0]
+			let out1 = [0, 0, 0]
+			let out2 = [0, 0, 0]
+
+			let output = []
+
+			for (let cnt = 0; cnt < this.dataN; cnt++) {
+				const input = [
+					this.accelerationInRoomData.x[cnt],
+					this.accelerationInRoomData.y[cnt],
+					this.accelerationInRoomData.z[cnt],
+				]
+
+				const outputThis = this.PlusVec(
+					this.ScaleVec(input, b0 / a0),
+					this.ScaleVec(in1, b1 / a0),
+					this.ScaleVec(in2, b2 / a0),
+					this.ScaleVec(out1, -a1 / a0),
+					this.ScaleVec(out2, -a2 / a0),
+				)
+
+				output.push(outputThis)
+
+				in2 = in1
+				in1 = input
+
+				out2 = out1
+				out1 = outputThis
+			}
+
+			return output
+		},
+		ComputeSamplingRate() {
+			//simply from average time interval
+			let sum = 0
+			for (let i = 0; i < this.dataReceivedTime.length - 1; i++) {
+				sum += this.dataReceivedTime[i + 1] - this.dataReceivedTime[i]
+			}
+			return (this.dataN - 1) / sum
 		},
 		ClearData() {
 			this.accelerationInRoomData.x = []
 			this.accelerationInRoomData.y = []
 			this.accelerationInRoomData.z = []
 			this.dataReceivedTime = []
+		},
+		PlusVec(...vecs) {
+			let result = [0, 0, 0]
+			for (let vec of vecs) {
+				result[0] += vec[0]
+				result[1] += vec[1]
+				result[2] += vec[2]
+			}
+			return result
+		},
+		ScaleVec(vec, scale) {
+			return [vec[0] * scale, vec[1] * scale, vec[2] * scale]
 		},
 	},
 	watch: {
@@ -52,6 +126,8 @@ export default Vue.defineComponent({
 				this.accelerationInRoomData.y.push(val[1])
 				this.accelerationInRoomData.z.push(val[2])
 				this.dataReceivedTime.push(performance.now())
+
+				this.dataN++
 			},
 			deep: true,
 		},
