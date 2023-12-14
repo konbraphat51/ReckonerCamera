@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<LanguageSelection />
-		<Camera />
+		<Camera @pictureTaken="OnPictureTaken" />
 		<Sensors />
 	</div>
 </template>
@@ -27,7 +27,7 @@ export default Vue.defineComponent({
 	},
 	methods: {
 		OnPictureTaken(data) {
-			console.log(data)
+			let pictureData = data
 		},
 	},
 })
