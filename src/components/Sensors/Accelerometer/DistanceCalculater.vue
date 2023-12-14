@@ -35,10 +35,22 @@ export default Vue.defineComponent({
 	methods: {
 		StartMoving() {},
 		StopMoving() {
-			this.FilterData()
+			const samplingRate = this.ComputeSamplingRate()
+
+			const accelerationFiltered = this.FilterData(samplingRate)
+
+			const velocityData = this.ComputeVelocity(
+				accelerationFiltered,
+				samplingRate,
+			)
+
+			const distance = this.ComputeDistance(velocityData, samplingRate)
+
 			this.ClearData()
+
+			this.$emit("distanceCalculated", distance)
 		},
-		FilterData() {
+		FilterData(samplingRate) {
 			//https://www.utsbox.com/?page_id=523
 			//low pass filter
 
@@ -46,7 +58,6 @@ export default Vue.defineComponent({
 			const q = 0.3
 			const cutoff = 0.1
 
-			const samplingRate = this.ComputeSamplingRate()
 			const omega = (2 * Math.PI * cutoff) / samplingRate
 			const alpha = Math.sin(omega) / (2 * q)
 
@@ -97,6 +108,35 @@ export default Vue.defineComponent({
 				sum += this.dataReceivedTime[i + 1] - this.dataReceivedTime[i]
 			}
 			return (this.dataN - 1) / sum
+		},
+		ComputeVelocity(accelerationData, samplingRate) {
+			let output = []
+
+			for (let cnt = 0; cnt < this.dataN; cnt++) {
+				const input = [
+					accelerationData[cnt][0],
+					accelerationData[cnt][1],
+					accelerationData[cnt][2],
+				]
+
+				const outputThis = this.PlusVec(
+					this.ScaleVec(input, 1 / samplingRate),
+					output[cnt - 1],
+				)
+
+				output.push(outputThis)
+			}
+
+			return output
+		},
+		ComputeDistance(velocityData, samplingRate) {
+			let output = [0, 0, 0]
+
+			for (let cnt = 0; cnt < this.dataN; cnt++) {
+				output = this.PlusVec(output, velocityData[cnt])
+			}
+
+			return output
 		},
 		ClearData() {
 			this.accelerationInRoomData.x = []
