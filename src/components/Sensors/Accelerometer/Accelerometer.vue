@@ -85,6 +85,8 @@ export default Vue.defineComponent({
         SetCoordinate() {
             //clone
             this.earth2roomQuaternion = new Quaternion(this.device2EarthQuaternion.x, this.device2EarthQuaternion.y, this.device2EarthQuaternion.z, this.device2EarthQuaternion.w)
+
+            alert("Coordinate set")
         },
         OnDistanceCalculated(distance) {
             this.$emit("distanceCalculated", distance)
