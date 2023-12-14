@@ -39,14 +39,22 @@ export default Vue.defineComponent({
 
 			const samplingRate = this.ComputeSamplingRate()
 
+			alert(samplingRate)
+
 			const accelerationFiltered = this.FilterData(samplingRate)
+
+			alert("accelerationFiltered")
 
 			const velocityData = this.ComputeVelocity(
 				accelerationFiltered,
 				samplingRate,
 			)
 
+			alert("velocityData")
+
 			const distance = this.ComputeDistance(velocityData, samplingRate)
+
+			alert("distance")
 
 			this.ClearData()
 
