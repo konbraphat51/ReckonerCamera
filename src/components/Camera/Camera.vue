@@ -1,6 +1,6 @@
 <template>
 	<div id="Camera">
-		<video ref="video" autoplay width="300" height="200"></video>
+		<video ref="video" autoplay playsinline width="300" height="200"></video>
 		<Button @takePicture="takePicture" />
 	</div>
 </template>
