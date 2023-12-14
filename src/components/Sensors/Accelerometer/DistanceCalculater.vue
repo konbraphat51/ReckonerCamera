@@ -34,6 +34,8 @@ export default Vue.defineComponent({
 	methods: {
 		StartMoving() {},
 		StopMoving() {
+			this.SaveData()
+
 			const samplingRate = this.ComputeSamplingRate()
 			const accelerationFiltered = this.FilterData(samplingRate)
 			const velocityData = this.ComputeVelocity(
@@ -160,6 +162,25 @@ export default Vue.defineComponent({
 		},
 		ScaleVec(vec, scale) {
 			return [vec[0] * scale, vec[1] * scale, vec[2] * scale]
+		},
+		SaveData() {
+			//for debug
+
+			let output = ""
+			for (let i = 0; i < this.dataReceivedTime.length; i++) {
+				let line = ""
+				line += this.dataReceivedTime[i].toString() + ","
+				line += this.accelerationInRoomData.x[i].toString() + ","
+				line += this.accelerationInRoomData.y[i].toString() + ","
+				line += this.accelerationInRoomData.z[i].toString() + "\n"
+				output += line
+			}
+
+			const blob = new Blob([output], {type: "text/plain"})
+			const link = document.createElement("a")
+			link.href = URL.createObjectURL(blob)
+			link.download = "data.csv"
+			link.click()
 		},
 	},
 	watch: {
