@@ -108,7 +108,7 @@ export default Vue.defineComponent({
 
 			const miliseconds = (n - 1) / sum
 
-			return miliseconds / 1000
+			return miliseconds / 1000 //seconds
 		},
 		ComputeVelocity(accelerationData, samplingRate) {
 			const n = accelerationData.length
