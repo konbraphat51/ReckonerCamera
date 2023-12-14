@@ -122,9 +122,11 @@ export default Vue.defineComponent({
 			return (this.dataN - 1) / sum
 		},
 		ComputeVelocity(accelerationData, samplingRate) {
-			let output = []
+			const n = accelerationData.length
 
-			for (let cnt = 0; cnt < this.dataN; cnt++) {
+			let output = [0, 0, 0]
+
+			for (let cnt = 0; cnt < n; cnt++) {
 				const input = [
 					accelerationData[cnt][0],
 					accelerationData[cnt][1],
@@ -133,7 +135,7 @@ export default Vue.defineComponent({
 
 				const outputThis = this.PlusVec(
 					this.ScaleVec(input, 1 / samplingRate),
-					output[cnt - 1],
+					output[cnt],
 				)
 
 				output.push(outputThis)
@@ -142,9 +144,11 @@ export default Vue.defineComponent({
 			return output
 		},
 		ComputeDistance(velocityData, samplingRate) {
+			const n = velocityData.length
+
 			let output = [0, 0, 0]
 
-			for (let cnt = 0; cnt < this.dataN; cnt++) {
+			for (let cnt = 0; cnt < n; cnt++) {
 				output = this.PlusVec(output, velocityData[cnt])
 			}
 
