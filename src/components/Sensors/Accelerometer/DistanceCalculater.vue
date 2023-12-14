@@ -53,8 +53,8 @@ export default Vue.defineComponent({
 			const n = this.accelerationInRoomData.x.length
 
 			//set
-			const q = 0.3
-			const cutoff = 0.1
+			const q = 0.7
+			const cutoff = 0.01
 
 			const omega = (2 * Math.PI * cutoff) / samplingRate
 			const alpha = Math.sin(omega) / (2 * q)
@@ -107,7 +107,10 @@ export default Vue.defineComponent({
 				sum += this.dataReceivedTime[i + 1] - this.dataReceivedTime[i]
 				n++
 			}
-			return (n - 1) / sum
+
+			const miliseconds = (n - 1) / sum
+
+			return miliseconds / 1000
 		},
 		ComputeVelocity(accelerationData, samplingRate) {
 			const n = accelerationData.length
