@@ -22,8 +22,41 @@ export default Vue.defineComponent({
 		},
 	},
 	data() {
-		return {}
+		return {
+			accelerationInRoomData: {
+				x: [],
+				y: [],
+				z: [],
+			},
+			dataReceivedTime: [],
+		}
 	},
-	methods: {},
+	methods: {
+		StartMoving() {},
+		StopMoving() {},
+	},
+	watch: {
+		accelerationInRoom: {
+			handler: function (val) {
+				if (!this.flagMoving) return
+
+				this.accelerationInRoomData.x.push(val[0])
+				this.accelerationInRoomData.y.push(val[1])
+				this.accelerationInRoomData.z.push(val[2])
+				this.dataReceivedTime.push(performance.now())
+			},
+			deep: true,
+		},
+		flagMoving: {
+			handler: function (val) {
+				if (val) {
+					this.StartMoving()
+				} else {
+					this.StopMoving()
+				}
+			},
+			deep: true,
+		},
+	},
 })
 </script>
