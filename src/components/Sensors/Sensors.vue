@@ -1,6 +1,6 @@
 <template>
   <div id="Sensors">
-    <Accelerometer ref="accelerometer" :flagMoving="flagMoving"/>
+    <Accelerometer ref="accelerometer" :flagMoving="flagMoving" @distanceCalculated="OnDistanceCalculated"/>
     <PermissionRequester />
     <MovingButton
       @startMovement="StartMovement"
@@ -19,16 +19,13 @@
 </template>
 
 <script>
-import MovingButton from './MovingButton.vue';
-
 export default Vue.defineComponent({
   name: "Sensors",
   components: {
     Accelerometer: Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/Accelerometer/Accelerometer.vue", options)),
     PermissionRequester: Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/PermissionRequester.vue", options)),
     MovingButton: Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/MovingButton.vue", options)),
-    MovingButton
-},
+  },
   data() {
     return {
       acceleration: [0, 0, 0],
@@ -48,6 +45,9 @@ export default Vue.defineComponent({
     StopMovement() {
         this.flagMoving = false
     },
+    OnDistanceCalculated(distance) {
+      alert(distance)
+    }
   },
 });
 </script>

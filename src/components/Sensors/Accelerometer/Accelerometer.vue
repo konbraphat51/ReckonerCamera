@@ -15,6 +15,7 @@
         </p>
 
         <CoordinateSetter @set="SetCoordinate" />
+        <DistanceCalculater @distanceCalculated="OnDistanceCalculated" @flagMoving="flagMoving"/>
     </div>
 </template>
 
@@ -22,8 +23,9 @@
 export default Vue.defineComponent({
     name: 'Accelerometer',
     components: {
-        "CoordinateSetter": Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/Accelerometer/CoordinateSetter.vue", options)),
-    },
+    "CoordinateSetter": Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/Accelerometer/CoordinateSetter.vue", options)),
+    "DistanceCalculater": Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/Accelerometer/DistanceCalculater.vue", options)),
+},
     setup() {
         //set up i18n
         const { t } = VueI18n.useI18n()
@@ -80,6 +82,9 @@ export default Vue.defineComponent({
         },
         SetCoordinate() {
             this.earth2roomQuaternion = this.earth2DeviceQuaternion
+        },
+        OnDistanceCalculated(distance) {
+            this.$emit("distanceCalculated", distance)
         },
         GetAccelerationInRoom() {
             return this.accelerationInRoom
