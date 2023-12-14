@@ -35,6 +35,8 @@ export default Vue.defineComponent({
 	methods: {
 		StartMoving() {},
 		StopMoving() {
+			alert("stop moving1")
+
 			const samplingRate = this.ComputeSamplingRate()
 
 			const accelerationFiltered = this.FilterData(samplingRate)
@@ -49,6 +51,8 @@ export default Vue.defineComponent({
 			this.ClearData()
 
 			this.$emit("distanceCalculated", distance)
+
+			alert("stop moving2")
 		},
 		FilterData(samplingRate) {
 			//https://www.utsbox.com/?page_id=523
