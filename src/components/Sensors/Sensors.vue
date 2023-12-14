@@ -53,6 +53,10 @@ export default Vue.defineComponent({
     },
     GetPosition() {
       return this.$refs["position"].GetPosition()
+    },
+    GetRoom2Device() {
+      let device2room = this.$refs["accelerometer"].GetDevice2RoomQuaternion()
+      return Quaternion.Inverse(device2room).normalized
     }
   },
 });

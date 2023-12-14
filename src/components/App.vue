@@ -30,6 +30,7 @@ export default Vue.defineComponent({
 			let pictureData = data
 
 			const position = this.$refs["sensors"].GetPosition()
+			const room2device = this.$refs["sensors"].GetRoom2Device()
 		},
 	},
 })
