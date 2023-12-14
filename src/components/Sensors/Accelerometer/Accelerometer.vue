@@ -17,7 +17,8 @@
         <CoordinateSetter @set="SetCoordinate" />
         <DistanceCalculater 
             @distanceCalculated="OnDistanceCalculated" 
-            :flagMoving="flagMoving"/>
+            :flagMoving="flagMoving"
+            :accelerationInRoom="accelerationInRoom"/>
     </div>
 </template>
 
