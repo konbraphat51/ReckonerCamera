@@ -34,6 +34,11 @@ export default Vue.defineComponent({
 		GetPosition() {
 			return [this.x, this.y, this.z]
 		},
+		Reset() {
+			this.x = 0
+			this.y = 0
+			this.z = 0
+		},
 	},
 })
 </script>

@@ -4,6 +4,7 @@
 			ref="accelerometer"
 			:flagMoving="flagMoving"
 			@distanceCalculated="OnDistanceCalculated"
+			@coordinateSet="SetCoordinate"
 		/>
 		<PermissionRequester />
 		<MovingButton @startMovement="StartMovement" @stopMovement="StopMovement" />
@@ -53,6 +54,9 @@ export default Vue.defineComponent({
 		GetRoom2Device() {
 			let device2room = this.$refs["accelerometer"].GetDevice2RoomQuaternion()
 			return Quaternion.Inverse(device2room).normalized
+		},
+		SetCoordinate() {
+			this.$refs["position"].Reset()
 		},
 	},
 })
