@@ -14,6 +14,9 @@
       x: {{ acceleration[0] }} <br />
       y: {{ acceleration[1] }} <br />
       z: {{ acceleration[2] }} <br />
+
+      <h3>altitude</h3>
+      {{ altitude }}
     </p>
 
     <Position ref="position" />
@@ -33,6 +36,7 @@ export default Vue.defineComponent({
     return {
       acceleration: [0, 0, 0],
       device2room: Quaternion.identity,
+      altitude: 0,
       flagMoving: false,
     };
   },
@@ -41,6 +45,8 @@ export default Vue.defineComponent({
         this.acceleration = this.$refs["accelerometer"].GetAccelerationInRoom()
     
         this.device2room = this.$refs["accelerometer"].GetDevice2RoomQuaternion()
+
+        this.altitude = this.$refs["accelerometer"].GetAltitude()
     },
     StartMovement() {
         this.flagMoving = true
@@ -48,8 +54,8 @@ export default Vue.defineComponent({
     StopMovement() {
         this.flagMoving = false
     },
-    OnDistanceCalculated(distance) {
-      this.$refs["position"].Move(distance)
+    OnDistanceCalculated(distance, altitude) {
+      this.$refs["position"].Move(distance, altitude)
     },
     GetPosition() {
       return this.$refs["position"].GetPosition()

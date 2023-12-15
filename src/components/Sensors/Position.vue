@@ -26,10 +26,10 @@ export default Vue.defineComponent({
 		}
 	},
 	methods: {
-		Move(movementVector) {
+		Move(movementVector, altitude) {
 			this.x += movementVector[0]
 			this.y += movementVector[1]
-			this.z += movementVector[2]
+			this.z = altitude
 		},
 		GetPosition() {
 			return [this.x, this.y, this.z]

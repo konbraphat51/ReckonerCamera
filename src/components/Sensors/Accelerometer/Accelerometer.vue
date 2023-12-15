@@ -52,6 +52,7 @@ export default Vue.defineComponent({
                 beta: 0,
                 gamma: 0
             },
+            altitude: 0,
             flagListening: false,
             earth2roomQuaternion: Quaternion.identity,
         }
@@ -62,26 +63,37 @@ export default Vue.defineComponent({
     methods: {
         StartListening() {
             if (window.DeviceMotionEvent) {
-                window.addEventListener('devicemotion', this.GetAcceleration, false)
+                window.addEventListener('devicemotion', this.ReceiveAcceleration, false)
             } else {
                 alert("DeviceMotionEvent is not supported")
             }
 
             if (window.DeviceOrientationEvent) {
-                window.addEventListener('deviceorientation', this.GetOrientation, false)
+                window.addEventListener('deviceorientation', this.ReceiveOrientation, false)
             } else {
                 alert("DeviceOrientationEvent is not supported")
             }
+
+            if (window.Geolocation) {
+                window.navigator.geolocation.getCurrentPosition(this.ReceivePosition)
+            } else {
+                alert("Geolocation is not supported")
+            }
+
+            this.flagListening = true
         },
-        GetAcceleration(event) {
+        ReceiveAcceleration(event) {
             this.accelerometerData.x = event.acceleration.x
             this.accelerometerData.y = event.acceleration.y
             this.accelerometerData.z = event.acceleration.z
         },
-        GetOrientation(event) {
+        ReceiveOrientation(event) {
             this.orientationData.alpha = event.alpha
             this.orientationData.beta = event.beta
             this.orientationData.gamma = event.gamma
+        },
+        ReceivePosition(position) {
+            this.altitude = position.coords.altitude
         },
         SetCoordinate() {
             //clone
@@ -90,7 +102,7 @@ export default Vue.defineComponent({
             alert("Coordinate set")
         },
         OnDistanceCalculated(distance) {
-            this.$emit("distanceCalculated", distance)
+            this.$emit("distanceCalculated", distance, this.altitude)
         },
         GetAccelerationInRoom() {
             return this.accelerationInRoom
@@ -100,6 +112,9 @@ export default Vue.defineComponent({
         },
         GetDevice2EarthQuaternion() {
             return this.device2EarthQuaternion
+        },
+        GetAltitude() {
+            return this.altitude
         }
     },
     computed: {
