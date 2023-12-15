@@ -44,8 +44,8 @@ export default Vue.defineComponent({
 		StopMovement() {
 			this.flagMoving = false
 		},
-		OnDistanceCalculated(distance, altitude) {
-			this.$refs["position"].Move(distance, altitude)
+		OnDistanceCalculated(distance) {
+			this.$refs["position"].Move(distance)
 		},
 		GetPosition() {
 			return this.$refs["position"].GetPosition()

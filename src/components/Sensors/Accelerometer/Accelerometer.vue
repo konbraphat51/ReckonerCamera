@@ -14,11 +14,6 @@
         z: {{ direction[2] }} <br>
         </p>
 
-        <p>
-        <h3>Altitude</h3>
-        {{ relativeAltitute }} <br>
-        </p>
-
         <CoordinateSetter @set="SetCoordinate" />
         <DistanceCalculater 
             @distanceCalculated="OnDistanceCalculated" 
@@ -57,8 +52,6 @@ export default Vue.defineComponent({
                 beta: 0,
                 gamma: 0
             },
-            altitude: 0,
-            altitudeBase: 0,
             flagListening: false,
             earth2roomQuaternion: Quaternion.identity,
         }
@@ -80,12 +73,6 @@ export default Vue.defineComponent({
                 alert("DeviceOrientationEvent is not supported")
             }
 
-            if (window.Geolocation) {
-                window.navigator.geolocation.watchPosition(this.ReceivePosition)
-            } else {
-                alert("Geolocation is not supported")
-            }
-
             this.flagListening = true
         },
         ReceiveAcceleration(event) {
@@ -98,19 +85,14 @@ export default Vue.defineComponent({
             this.orientationData.beta = event.beta
             this.orientationData.gamma = event.gamma
         },
-        ReceivePosition(position) {
-            this.altitude = position.coords.altitude
-        },
         SetCoordinate() {
             //clone
             this.earth2roomQuaternion = new Quaternion(this.device2EarthQuaternion.x, this.device2EarthQuaternion.y, this.device2EarthQuaternion.z, this.device2EarthQuaternion.w)
 
-            this.altitudeBase = this.altitude
-
             alert("Coordinate set")
         },
         OnDistanceCalculated(distance) {
-            this.$emit("distanceCalculated", distance, this.altitude)
+            this.$emit("distanceCalculated", distance)
         },
         GetAccelerationInRoom() {
             return this.accelerationInRoom
@@ -121,9 +103,6 @@ export default Vue.defineComponent({
         GetDevice2EarthQuaternion() {
             return this.device2EarthQuaternion
         },
-        GetAltitude() {
-            return this.relativeAltitute
-        }
     },
     computed: {
         device2EarthQuaternion() {
@@ -147,9 +126,6 @@ export default Vue.defineComponent({
         },
         direction() {
             return this.device2roomQuaternion.RotateVector([0, 1, 0])
-        },
-        relativeAltitute() {
-            return this.altitude - this.altitudeBase
         }
     }
 })
