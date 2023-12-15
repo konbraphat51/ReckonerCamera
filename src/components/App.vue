@@ -27,7 +27,7 @@ export default Vue.defineComponent({
 	},
 	methods: {
 		OnPictureTaken(data) {
-			let pictureData = data
+			const pictureData = data
 
 			const position = this.$refs["sensors"].GetPosition()
 			const room2device = this.$refs["sensors"].GetRoom2Device()
@@ -58,10 +58,8 @@ export default Vue.defineComponent({
 			return piexif.insert(exifStr, pictureData)
 		},
 		Download(data, filename) {
-			const blob = new Blob([data], {type: "image/jpeg"})
-			const url = window.URL.createObjectURL(blob)
 			const link = document.createElement("a")
-			link.href = url
+			link.href = data
 			link.download = filename
 			link.click()
 
