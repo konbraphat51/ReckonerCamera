@@ -40,8 +40,9 @@ export default Vue.defineComponent({
 			const context = canvas.getContext("2d")
 
 			context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
-			const data = canvas.toDataURL("image/png")
-			this.$emit("pictureTaken", data)
+			canvas.toBlob((blob) => {
+				this.$emit("pictureTaken", blob)
+			})
 
 			canvas.remove()
 		},
