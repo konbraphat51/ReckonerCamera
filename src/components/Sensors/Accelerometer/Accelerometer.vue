@@ -53,6 +53,7 @@ export default Vue.defineComponent({
                 gamma: 0
             },
             altitude: 0,
+            altitudeBase: 0,
             flagListening: false,
             earth2roomQuaternion: Quaternion.identity,
         }
@@ -99,6 +100,8 @@ export default Vue.defineComponent({
             //clone
             this.earth2roomQuaternion = new Quaternion(this.device2EarthQuaternion.x, this.device2EarthQuaternion.y, this.device2EarthQuaternion.z, this.device2EarthQuaternion.w)
 
+            altitudeBase = this.altitude
+
             alert("Coordinate set")
         },
         OnDistanceCalculated(distance) {
@@ -114,7 +117,7 @@ export default Vue.defineComponent({
             return this.device2EarthQuaternion
         },
         GetAltitude() {
-            return this.altitude
+            return this.altitude - this.altitudeBase
         }
     },
     computed: {
