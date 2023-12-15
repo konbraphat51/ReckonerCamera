@@ -40,17 +40,17 @@ export default Vue.defineComponent({
 
 			const time = new Date().toISOString().replace(/:/g, "-")
 
-			this.Download(dataEdited, "image_" + time + ".png")
+			this.Download(dataEdited, "image_" + time + ".jpg")
 		},
 		CreateImageData(pictureData, position, room2device) {
 			//make exif
+			let exif = {}
+			exif[piexif.ExifIFD.MakerNote] = this.WriteMakerNote(
+				position,
+				room2device,
+			)
 			const exifObj = {
-				Exif: {
-					room2device: room2device.ToString(5),
-					position_x: position[0].toString(),
-					position_y: position[1].toString(),
-					position_z: position[2].toString(),
-				},
+				Exif: exif,
 			}
 			const exifStr = piexif.dump(exifObj)
 
@@ -58,7 +58,7 @@ export default Vue.defineComponent({
 			return piexif.insert(exifStr, pictureData)
 		},
 		Download(data, filename) {
-			const blob = new Blob([data], {type: "image/png"})
+			const blob = new Blob([data], {type: "image/jpeg"})
 			const url = window.URL.createObjectURL(blob)
 			const link = document.createElement("a")
 			link.href = url
@@ -66,6 +66,15 @@ export default Vue.defineComponent({
 			link.click()
 
 			link.remove()
+		},
+		WriteMakerNote(position, room2device) {
+			const makerNote = {
+				room2device: room2device.ToString(5),
+				position_x: position[0],
+				position_y: position[1],
+				position_z: position[2],
+			}
+			return JSON.stringify(makerNote)
 		},
 	},
 })
