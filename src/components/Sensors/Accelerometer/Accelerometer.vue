@@ -14,6 +14,11 @@
         z: {{ direction[2] }} <br>
         </p>
 
+        <p>
+        <h3>Altitude</h3>
+        {{ relativeAltitute }} <br>
+        </p>
+
         <CoordinateSetter @set="SetCoordinate" />
         <DistanceCalculater 
             @distanceCalculated="OnDistanceCalculated" 
@@ -117,7 +122,7 @@ export default Vue.defineComponent({
             return this.device2EarthQuaternion
         },
         GetAltitude() {
-            return this.altitude - this.altitudeBase
+            return this.relativeAltitute
         }
     },
     computed: {
@@ -142,6 +147,9 @@ export default Vue.defineComponent({
         },
         direction() {
             return this.device2roomQuaternion.RotateVector([0, 1, 0])
+        },
+        relativeAltitute() {
+            return this.altitude - this.altitudeBase
         }
     }
 })
