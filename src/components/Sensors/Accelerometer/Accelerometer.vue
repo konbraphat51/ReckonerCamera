@@ -76,7 +76,7 @@ export default Vue.defineComponent({
             }
 
             if (window.Geolocation) {
-                window.navigator.geolocation.getCurrentPosition(this.ReceivePosition)
+                window.navigator.geolocation.watchPosition(this.ReceivePosition)
             } else {
                 alert("Geolocation is not supported")
             }
