@@ -8,8 +8,6 @@
 		<PermissionRequester />
 		<MovingButton @startMovement="StartMovement" @stopMovement="StopMovement" />
 
-		<button @click="ReadAccelerometer">Get Acceleration</button>
-
 		<Position ref="position" />
 	</div>
 </template>
