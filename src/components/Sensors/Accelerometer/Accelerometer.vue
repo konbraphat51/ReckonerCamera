@@ -105,7 +105,7 @@ export default Vue.defineComponent({
             //clone
             this.earth2roomQuaternion = new Quaternion(this.device2EarthQuaternion.x, this.device2EarthQuaternion.y, this.device2EarthQuaternion.z, this.device2EarthQuaternion.w)
 
-            altitudeBase = this.altitude
+            this.altitudeBase = this.altitude
 
             alert("Coordinate set")
         },
