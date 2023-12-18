@@ -60,7 +60,7 @@ export default Vue.defineComponent({
 
 <style>
 #position {
-	background-color: rgb(235, 82, 82);
+	background-color: pink;
 	border-radius: 10px;
 	padding: 5px;
 }
