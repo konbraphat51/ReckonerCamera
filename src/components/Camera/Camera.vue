@@ -22,7 +22,7 @@ export default Vue.defineComponent({
 		const video = this.$refs.video
 		if (navigator.mediaDevices.getUserMedia) {
 			navigator.mediaDevices
-				.getUserMedia({video: true, audio: false})
+				.getUserMedia({video: {facingMode: "environment"}, audio: false})
 				.then(function (stream) {
 					video.srcObject = stream
 				})
