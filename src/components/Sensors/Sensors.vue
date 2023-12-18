@@ -1,15 +1,17 @@
 <template>
 	<div id="Sensors">
+		<MovingButton @startMovement="StartMovement" @stopMovement="StopMovement" />
+
 		<Accelerometer
 			ref="accelerometer"
 			:flagMoving="flagMoving"
 			@distanceCalculated="OnDistanceCalculated"
 			@coordinateSet="SetCoordinate"
 		/>
-		<PermissionRequester />
-		<MovingButton @startMovement="StartMovement" @stopMovement="StopMovement" />
 
 		<Position ref="position" />
+
+		<PermissionRequester />
 	</div>
 </template>
 

@@ -50,3 +50,15 @@ export default Vue.defineComponent({
     }
 }
 </i18n>
+
+<style>
+#MovingButton {
+	margin-top: 30px;
+}
+
+#MovingButton button {
+	width: 100%;
+	height: 100px;
+	background-color: rgb(82, 235, 128);
+}
+</style>

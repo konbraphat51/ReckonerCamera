@@ -1,24 +1,25 @@
 <template>
     <div id="Accelerometer">
-        <p>
-        <h3>Accelerometer</h3>
+        <p id="AccelerometerSensor">
+        <h3> {{ t("accelerometer.accelerometer") }} </h3>
         x: {{ accelerationInRoom[0] }} <br>
         y: {{ accelerationInRoom[1] }} <br>
         z: {{ accelerationInRoom[2] }} <br>
         </p>
 
-        <p>
-        <h3>Direction</h3>
+        <p id="Direction">
+        <h3> {{ t("accelerometer.direction") }} </h3>
         x: {{ direction[0] }} <br>
         y: {{ direction[1] }} <br>
         z: {{ direction[2] }} <br>
         </p>
 
-        <CoordinateSetter @set="SetCoordinate" />
         <DistanceCalculater 
             @distanceCalculated="OnDistanceCalculated" 
             :flagMoving="flagMoving"
             :accelerationInRoom="accelerationInRoom"/>
+
+        <CoordinateSetter @set="SetCoordinate" />
     </div>
 </template>
 
@@ -132,3 +133,35 @@ export default Vue.defineComponent({
     }
 })
 </script>
+
+<i18n>
+{
+    "en": {
+        "accelerometer": {
+            "accelerometer": "Accelerometer (InRoom Coordinate)",
+            "direction": "Device Direction (InRoom Coordinate)"
+        }
+    },
+    "ja": {
+        "accelerometer": {
+            "accelerometer": "加速度センサー (部屋内座標)",
+            "direction": "デバイスの向き (部屋内座標)"
+        }
+    }
+}
+</i18n>
+
+<style>
+#AccelerometerSensor {
+    background-color:lightblue;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#Direction {
+    background-color:lightgreen;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+</style>

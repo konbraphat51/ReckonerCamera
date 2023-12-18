@@ -57,3 +57,11 @@ export default Vue.defineComponent({
         }
     }
 </i18n>
+
+<style>
+#position {
+	background-color: rgb(235, 82, 82);
+	border-radius: 10px;
+	padding: 5px;
+}
+</style>
