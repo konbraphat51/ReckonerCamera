@@ -67,7 +67,10 @@ export default Vue.defineComponent({
 		},
 		WriteMakerNote(position, room2device) {
 			const makerNote = {
-				room2device: room2device.ToString(5),
+				direction_w: room2device.w,
+				direction_x: room2device.x,
+				direction_y: room2device.y,
+				direction_z: room2device.z,
 				position_x: position[0],
 				position_y: position[1],
 				position_z: position[2],
