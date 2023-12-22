@@ -1,17 +1,17 @@
 <template>
     <div id="Accelerometer">
         <p id="AccelerometerSensor">
-        <h3> {{ t("accelerometer.accelerometer") }} </h3>
-        x: {{ accelerationInRoom[0] }} <br>
-        y: {{ accelerationInRoom[1] }} <br>
-        z: {{ accelerationInRoom[2] }} <br>
+            <h3> {{ t("accelerometer.accelerometer") }} </h3>
+            x: {{ accelerationInRoom[0] }} <br>
+            y: {{ accelerationInRoom[1] }} <br>
+            z: {{ accelerationInRoom[2] }} <br>
         </p>
 
         <p id="Direction">
-        <h3> {{ t("accelerometer.direction") }} </h3>
-        x: {{ direction[0] }} <br>
-        y: {{ direction[1] }} <br>
-        z: {{ direction[2] }} <br>
+            <h3> {{ t("accelerometer.direction") }} </h3>
+            x: {{ direction[0] }} <br>
+            y: {{ direction[1] }} <br>
+            z: {{ direction[2] }} <br>
         </p>
 
         <DistanceCalculater 
