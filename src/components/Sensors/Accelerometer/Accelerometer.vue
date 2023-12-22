@@ -1,17 +1,21 @@
 <template>
     <div id="Accelerometer">
         <p id="AccelerometerSensor">
-            <h3> {{ t("accelerometer.accelerometer") }} </h3>
-            x: {{ accelerationInRoom[0] }} <br>
-            y: {{ accelerationInRoom[1] }} <br>
-            z: {{ accelerationInRoom[2] }} <br>
+            <h3 @click="ToggleShowingAcceleration"> {{ t("accelerometer.accelerometer") }} </h3>
+            <div v-if="flagShowingAcceleraion">
+                x: {{ accelerationInRoom[0] }} <br>
+                y: {{ accelerationInRoom[1] }} <br>
+                z: {{ accelerationInRoom[2] }} <br>
+            </div>
         </p>
 
         <p id="Direction">
-            <h3> {{ t("accelerometer.direction") }} </h3>
-            x: {{ direction[0] }} <br>
-            y: {{ direction[1] }} <br>
-            z: {{ direction[2] }} <br>
+            <h3 @click="ToggleShowingDirection"> {{ t("accelerometer.direction") }} </h3>
+            <div v-if="flagShowingDirection">
+                x: {{ direction[0] }} <br>
+                y: {{ direction[1] }} <br>
+                z: {{ direction[2] }} <br>
+            </div>
         </p>
 
         <DistanceCalculater 
@@ -55,6 +59,8 @@ export default Vue.defineComponent({
             },
             flagListening: false,
             earth2roomQuaternion: Quaternion.identity,
+            flagShowingAcceleraion: false,
+            flagShowingDirection: true
         }
     },
     mounted() {
@@ -106,6 +112,12 @@ export default Vue.defineComponent({
         GetDevice2EarthQuaternion() {
             return this.device2EarthQuaternion
         },
+        ToggleShowingAcceleration() {
+            this.flagShowingAcceleraion = !this.flagShowingAcceleraion
+        },
+        ToggleShowingDirection() {
+            this.flagShowingDirection = !this.flagShowingDirection
+        }
     },
     computed: {
         device2EarthQuaternion() {
