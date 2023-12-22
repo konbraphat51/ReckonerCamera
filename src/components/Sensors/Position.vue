@@ -1,10 +1,12 @@
 <template>
 	<div id="position">
-		<h3>{{ t("position.title") }}</h3>
 		<p>
-			x: {{ x }} <br />
-			y: {{ y }} <br />
-			z: {{ z }} <br />
+			<h3 @click="ToggleShowingPosition">{{ t("position.title") }}</h3>	
+			<div v-if="flagShowingPosition">
+				x: {{ x }} <br />
+				y: {{ y }} <br />
+				z: {{ z }} <br />
+			</div>
 		</p>
 	</div>
 </template>
@@ -23,6 +25,7 @@ export default Vue.defineComponent({
 			x: 0,
 			y: 0,
 			z: 0,
+			flagShowingPosition: true,
 		}
 	},
 	methods: {
@@ -38,6 +41,9 @@ export default Vue.defineComponent({
 			this.x = 0
 			this.y = 0
 			this.z = 0
+		},
+		ToggleShowingPosition() {
+			this.flagShowingPosition = !this.flagShowingPosition
 		},
 	},
 })
