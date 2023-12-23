@@ -16,6 +16,8 @@
                 y: {{ direction[1] }} <br>
                 z: {{ direction[2] }} <br>
             </div>
+
+            <DirectionSetter @set="SetDeviceDirection" />
         </p>
 
         <DistanceCalculater 
@@ -33,7 +35,8 @@ export default Vue.defineComponent({
     components: {
     "CoordinateSetter": Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/Accelerometer/CoordinateSetter.vue", options)),
     "DistanceCalculater": Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/Accelerometer/DistanceCalculater.vue", options)),
-    },
+    "DirectionSetter": Vue.defineAsyncComponent(() => loadModule("src/components/Sensors/Accelerometer/DirectionSetter.vue", options)),
+},
     setup() {
         //set up i18n
         const { t } = VueI18n.useI18n()
@@ -57,6 +60,7 @@ export default Vue.defineComponent({
                 beta: 0,
                 gamma: 0
             },
+            deviceDirection: [0, 1, 0],
             flagListening: false,
             earth2roomQuaternion: Quaternion.identity,
             flagShowingAcceleraion: false,
@@ -117,6 +121,9 @@ export default Vue.defineComponent({
         },
         ToggleShowingDirection() {
             this.flagShowingDirection = !this.flagShowingDirection
+        },
+        SetDeviceDirection(deviceDirection) {
+            this.deviceDirection = deviceDirection
         }
     },
     computed: {
@@ -140,7 +147,7 @@ export default Vue.defineComponent({
             return this.device2roomQuaternion.RotateVector(accelerationInDevice)
         },
         direction() {
-            return this.device2roomQuaternion.RotateVector([0, 1, 0])
+            return this.device2roomQuaternion.RotateVector([this.deviceDirection[0], this.deviceDirection[1], this.deviceDirection[2]])
         }
     }
 })
