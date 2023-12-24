@@ -57,5 +57,6 @@ export default Vue.defineComponent({
 	width: 20%;
 	height: 100px;
 	background-color: paleturquoise;
+	color: black;
 }
 </style>

@@ -60,5 +60,6 @@ export default Vue.defineComponent({
 	width: 100%;
 	height: 100px;
 	background-color: rgb(82, 235, 128);
+	color: black;
 }
 </style>
