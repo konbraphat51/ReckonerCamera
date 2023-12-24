@@ -50,5 +50,6 @@ export default Vue.defineComponent({
 	border-radius: 50%;
 	background-color: pink;
 	border: 1px solid #000;
+	color: black;
 }
 </style>
