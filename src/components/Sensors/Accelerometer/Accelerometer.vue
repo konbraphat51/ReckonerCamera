@@ -98,7 +98,7 @@ export default Vue.defineComponent({
         },
         SetCoordinate() {
             //clone
-            this.earth2roomQuaternion = new Quaternion(this.device2EarthQuaternion.x, this.device2EarthQuaternion.y, this.device2EarthQuaternion.z, this.device2EarthQuaternion.w)
+            this.earth2roomQuaternion = Quaternion.Inverse(this.device2EarthQuaternion).normalized
 
             this.$emit("coordinateSet")
 
@@ -134,7 +134,7 @@ export default Vue.defineComponent({
             let earth2deviceBeta = Quaternion.AngleAxis(-this.orientationData.beta, [1, 0, 0])
             let earth2deviceGamma = Quaternion.AngleAxis(-this.orientationData.gamma, [0, 1, 0])
 
-            let earth2deviceQuaternion = Quaternion.Multiply(earth2deviceAlpha, earth2deviceBeta, earth2deviceGamma)
+            let earth2deviceQuaternion = Quaternion.Multiply(earth2deviceAlpha, earth2deviceBeta, earth2deviceGamma).inversed
 
             return Quaternion.Inverse(earth2deviceQuaternion).normalized
         },
