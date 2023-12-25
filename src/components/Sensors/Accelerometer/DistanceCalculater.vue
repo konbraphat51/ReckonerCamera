@@ -34,7 +34,7 @@ export default Vue.defineComponent({
 	methods: {
 		StartMoving() {},
 		StopMoving() {
-			//this.SaveData()
+			this.SaveData()
 
 			const samplingRate = this.ComputeSamplingRate()
 			const accelerationFiltered = this.FilterData(samplingRate)
