@@ -88,10 +88,10 @@ export default Vue.defineComponent({
             this.flagListening = true
         },
         ReceiveAcceleration(event) {
-            if (performance.now() - this.time < 1000) {
+            if (Date.now() - this.time < 1000) {
                 return
             }else {
-                this.time = performance.now()
+                this.time = Date.now()
             }
 
             this.accelerometerData.x = event.acceleration.x
