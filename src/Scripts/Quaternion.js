@@ -501,6 +501,10 @@ class Quaternion {
 
 		return [x, y, z]
 	}
+
+	get inversed() {
+		return Quaternion.Inverse(this)
+	}
 }
 
 if (typeof module !== "undefined") module.exports = Quaternion
