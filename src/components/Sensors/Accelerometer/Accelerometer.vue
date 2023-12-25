@@ -64,8 +64,7 @@ export default Vue.defineComponent({
             flagListening: false,
             earth2roomQuaternion: Quaternion.identity,
             flagShowingAcceleraion: false,
-            flagShowingDirection: true,
-            time: 0
+            flagShowingDirection: true
         }
     },
     mounted() {
@@ -88,12 +87,6 @@ export default Vue.defineComponent({
             this.flagListening = true
         },
         ReceiveAcceleration(event) {
-            if (Date.now() - this.time < 1000) {
-                return
-            }else {
-                this.time = Date.now()
-            }
-
             this.accelerometerData.x = event.acceleration.x
             this.accelerometerData.y = event.acceleration.y
             this.accelerometerData.z = event.acceleration.z
