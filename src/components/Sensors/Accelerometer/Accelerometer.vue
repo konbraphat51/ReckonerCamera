@@ -6,6 +6,8 @@
                 x: {{ accelerationInRoom[0] }} <br>
                 y: {{ accelerationInRoom[1] }} <br>
                 z: {{ accelerationInRoom[2] }} <br>
+                <label> {{ t("accelerometer.negate") }} </label>
+                <input type="checkbox" v-model="flagNegatingAcceleration" />
             </div>
         </p>
 
@@ -64,7 +66,8 @@ export default Vue.defineComponent({
             flagListening: false,
             earth2roomQuaternion: Quaternion.identity,
             flagShowingAcceleraion: false,
-            flagShowingDirection: true
+            flagShowingDirection: true,
+            flagNegatingAcceleration: false
         }
     },
     mounted() {
@@ -87,9 +90,15 @@ export default Vue.defineComponent({
             this.flagListening = true
         },
         ReceiveAcceleration(event) {
-            this.accelerometerData.x = event.acceleration.x
-            this.accelerometerData.y = event.acceleration.y
-            this.accelerometerData.z = event.acceleration.z
+            if (this.flagNegatingAcceleration) {
+                this.accelerometerData.x = -event.acceleration.x
+                this.accelerometerData.y = -event.acceleration.y
+                this.accelerometerData.z = -event.acceleration.z
+            } else {
+                this.accelerometerData.x = event.acceleration.x
+                this.accelerometerData.y = event.acceleration.y
+                this.accelerometerData.z = event.acceleration.z
+            }
         },
         ReceiveOrientation(event) {
             this.orientationData.alpha = event.alpha
@@ -158,13 +167,15 @@ export default Vue.defineComponent({
     "en": {
         "accelerometer": {
             "accelerometer": "Accelerometer (InRoom Coordinate)",
-            "direction": "Device Direction (InRoom Coordinate)"
+            "direction": "Device Direction (InRoom Coordinate)",
+            "negate": "Negate"
         }
     },
     "ja": {
         "accelerometer": {
             "accelerometer": "加速度センサー (部屋内座標)",
-            "direction": "デバイスの向き (部屋内座標)"
+            "direction": "デバイスの向き (部屋内座標)",
+            "negate": "反転"
         }
     }
 }
