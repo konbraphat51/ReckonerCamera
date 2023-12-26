@@ -143,7 +143,8 @@ export default Vue.defineComponent({
             let earth2deviceBeta = Quaternion.AngleAxis(-this.orientationData.beta, [1, 0, 0])
             let earth2deviceGamma = Quaternion.AngleAxis(-this.orientationData.gamma, [0, 1, 0])
 
-            let earth2deviceQuaternion = Quaternion.Multiply(earth2deviceAlpha, earth2deviceBeta, earth2deviceGamma).inversed
+            //let earth2deviceQuaternion = Quaternion.Multiply(earth2deviceAlpha, earth2deviceBeta, earth2deviceGamma).inversed
+            let earth2deviceQuaternion = Quaternion.Multiply(earth2deviceGamma, earth2deviceBeta, earth2deviceAlpha).inversed
 
             return Quaternion.Inverse(earth2deviceQuaternion).normalized
         },
