@@ -139,11 +139,7 @@ export default Vue.defineComponent({
         device2EarthQuaternion() {
             //Device orientation:
             // https://developer.mozilla.org/ja/docs/Web/API/Device_orientation_events/Orientation_and_motion_data_explained
-            let earth2deviceAlpha = Quaternion.AngleAxis(-this.orientationData.alpha, [0, 0, 1])
-            let earth2deviceBeta = Quaternion.AngleAxis(-this.orientationData.beta, [1, 0, 0])
-            let earth2deviceGamma = Quaternion.AngleAxis(-this.orientationData.gamma, [0, 1, 0])
-
-            let earth2deviceQuaternion = Quaternion.Multiply(earth2deviceAlpha, earth2deviceBeta, earth2deviceGamma).inversed
+            let earth2deviceQuaternion = Quaternion.Euler(-this.orientationData.beta, -this.orientationData.gamma, -this.orientationData.alpha).inversed
 
             return Quaternion.Inverse(earth2deviceQuaternion).normalized
         },
