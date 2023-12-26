@@ -67,7 +67,7 @@ export default Vue.defineComponent({
             earth2roomQuaternion: Quaternion.identity,
             flagShowingAcceleraion: false,
             flagShowingDirection: true,
-            flagNegatingAcceleration: false
+            flagNegatingAcceleration: true
         }
     },
     mounted() {
